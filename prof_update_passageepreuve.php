@@ -2,7 +2,7 @@
     include "connexion_bd_gesoraux.php";
     //variables de session
     session_start();
-var_dump($_SESSION);
+
     $idProf = $_SESSION['id'];  
     $valeur="";
     $val_select="";
