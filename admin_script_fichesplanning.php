@@ -27,6 +27,8 @@ class PDF extends FPDF
     $this->SetTitle("Fiches planning de la classe $lst_section - $dateencours", "true");
     $dateencours = date('Y');
     $this->Text(15, 17,utf8_decode("Session $dateencours"));
+    //$this->Text(260, 17,utf8_decode("$lst_section"));
+    $this->Cell(0,10,utf8_decode("$lst_section"."  "),1,0,'R');
     // Saut de ligne
     $this->Ln(15);
     $this->SetFont('Arial','',8);
@@ -94,6 +96,9 @@ foreach ($lesEleves as $eleve) {
       $pdf->Cell(20,5,utf8_decode("".$epreuve->plagHoraireE),1,0,'C');
       $pdf->Cell(20,5,utf8_decode("".$epreuve->salleE),1,0,'C');
 
+    }else {
+      $pdf->SetX(91);
+      $pdf->Cell(98,5,utf8_decode(""),1,0,'C');
     }
 
     if ($epreuve->epreuveE == 'LV2') {
@@ -107,6 +112,9 @@ foreach ($lesEleves as $eleve) {
       $pdf->Cell(20,5,utf8_decode("".$epreuve->plagHoraireE),1,0,'C');
       $pdf->Cell(20,5,utf8_decode("".$epreuve->salleE),1,0,'C');
 
+    }else {
+      $pdf->SetX(189);
+      $pdf->Cell(98,5,utf8_decode(""),1,0,'C');
     }
   }
 
