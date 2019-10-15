@@ -98,15 +98,7 @@
                                 url : 'prof_update_passageepreuve.php', // script appelé
                                 type : 'POST', // Le type de la requête HTTP est POST
                                 data : 'caseCochee=' + $(this).prop('checked')+'&idPassageEpreuve='+$(this).val(), // le coché/décoché
-                                dataType : 'html',
-                                success:function(code_html, status){
-                                    if (code_html != "OK")
-                                    $(".resultat").html("MISE A JOUR IMPOSSIBLE <br> " + code_html);
-                                },
-                                error:function(resultat, statut, erreur){
-                                    // si l'appel ne se passe pas bien on affiche l'erreur
-                                    $(".resultat").html("ERREUR GRAVE"); 
-                                }
+                                dataType : 'html',                               
                             });
                         });
                     });
