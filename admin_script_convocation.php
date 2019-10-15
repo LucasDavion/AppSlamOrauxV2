@@ -32,13 +32,15 @@ try {
 	if (isset($_POST["btn_tout-generer"]) == true) {
 		$lesEleves = $bdd->query("SELECT Distinct nomE, prenomE, divisionE, idE FROM elevespassantep");
 		$pdf->SetTitle("Toutes les convocations - $dateencours", "true");
+		$just1 = 0;
 	} else {
 		if (isset($_POST["btn_genererclasse"]) == true) {
 			$lesEleves = $bdd->query("SELECT Distinct nomE, prenomE, divisionE, idE FROM elevespassantep WHERE divisionE = '$lst_section' ");
-
+			$just1 = 0;
 			$pdf->SetTitle("Convocations de la classe $lst_section - $dateencours", "true");
 		} else {
 			if (isset($_POST["btn_generereleve"]) == true) {
+				$just1 = 1;
 				$lesEleves = $bdd->query("SELECT Distinct nomE, prenomE, divisionE, idE FROM elevespassantep WHERE idE = $lst_eleve ");
 				$lInfo = $bdd->query("SELECT nom, prenom FROM eleve WHERE id =$lst_eleve");
 				$uneInfo = $lInfo->fetch();
@@ -146,15 +148,20 @@ try {
 
 		}
 
-		$pdf->AddPage();
+		if ($just1 != 1) {
+			$pdf->AddPage();
+		}
 
 	}
 
-	$pdf->SetFont('Arial','',20);
-	$pdf->SetXY(30, 100);
-	$pdf->MultiCell(150, 5,utf8_decode("TOTAL :"),0, "L");
-	$pdf->SetXY(30, 110);
-	$pdf->MultiCell(150, 5,utf8_decode("Convocation(s) générée(s) : ".$nbConvoc),0, "L");
+	if ($just1 != 1) {
+		$pdf->SetFont('Arial','',20);
+		$pdf->SetXY(30, 100);
+		$pdf->MultiCell(150, 5,utf8_decode("TOTAL :"),0, "L");
+		$pdf->SetXY(30, 110);
+		$pdf->MultiCell(150, 5,utf8_decode("Convocation(s) générée(s) : ".$nbConvoc),0, "L");
+	}
+
 
 	$pdf->Output();
 
